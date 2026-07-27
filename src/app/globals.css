@@ -1,0 +1,13 @@
+@import '../styles/tokens.css';
+@import '../styles/main.css';
+@import '../styles/valuation.css';
+
+/*
+ * Fonts are self-hosted through next/font rather than fetched from Google, so
+ * the token values point at the generated font-face families. Keeping the same
+ * token names means main.css is used exactly as it was authored.
+ */
+:root {
+  --wbah-font-head: var(--font-montserrat), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --wbah-font-body: var(--font-roboto), system-ui, -apple-system, 'Segoe UI', sans-serif;
+}

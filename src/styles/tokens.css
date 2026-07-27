@@ -1,0 +1,41 @@
+/* Design tokens — palette and type from the scrape reference (scrape/assets/css).
+ * Brand values verified by hex frequency against the original site; do not drift.
+ * Teal usage rule: --wbah-teal is a GRAPHIC colour only (2.92:1 on white — fails
+ * WCAG AA for text). Anything with text on or in it uses --wbah-teal-dark. */
+:root {
+  /* Brand */
+  --wbah-teal:      #20a997; /* scrape brand teal (113 refs). Fills/graphics only — 2.92:1 on white. */
+  --wbah-teal-dark: #198576; /* derived from #20a997, hue+sat locked, darkened to 4.53:1 on white (AA). Text + text-bearing fills. */
+  --wbah-teal-deep: #13645a; /* one step darker (6.97:1) — hover state for teal-dark fills, which now occupy the old hover slot. */
+  --wbah-teal-lite: #41b6a7; /* scrape's actual lighter teal (17 refs). Graphics only — 2.48:1. */
+  --wbah-blue:      #097baa;
+  --wbah-blue-lite: #17a8e3;
+  --wbah-yellow:    #f4c755;
+  --wbah-yellow-dk: #e0b23f;
+  --wbah-red:       #e51919;
+
+  /* Ink / neutrals */
+  --wbah-ink:       #1c2233;
+  --wbah-ink-2:     #272c3e;
+  --wbah-body:      #4a4d57;
+  --wbah-muted:     #7c8090;
+  --wbah-line:      #e7eaee;
+  --wbah-bg:        #ffffff;
+  --wbah-bg-alt:    #f5f8f9;
+  --wbah-bg-mint:   #eef8f6;
+
+  /* Type */
+  --wbah-font-head: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --wbah-font-body: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Scale */
+  --wbah-maxw:      1180px;
+  --wbah-gap:       28px;
+  --wbah-radius:    12px;
+  --wbah-radius-lg: 22px;
+  --wbah-shadow:    0 10px 30px rgba(28, 34, 51, .10);
+  --wbah-shadow-lg: 0 24px 60px rgba(28, 34, 51, .16);
+  --wbah-shadow-sm: 0 4px 14px rgba(28, 34, 51, .08);
+  --wbah-header-h:  80px;
+  --wbah-ease:      cubic-bezier(.22, .61, .36, 1);
+}

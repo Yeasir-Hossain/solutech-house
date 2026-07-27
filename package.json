@@ -1,0 +1,29 @@
+{
+  "name": "webuyanyhouse",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "migrate:content": "node scripts/build-content.mjs",
+    "migrate:images": "node scripts/build-images.mjs"
+  },
+  "dependencies": {
+    "jose": "^5.9.6",
+    "mongodb": "^6.12.0",
+    "next": "^16.2.12",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "sharp": "^0.33.5",
+    "typescript": "^5.7.3"
+  }
+}

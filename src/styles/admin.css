@@ -1,0 +1,380 @@
+/* Submissions area. Deliberately plain and dense — this is a working tool, not
+   a marketing page — but it borrows the site's tokens so it looks related. */
+
+.sh-admin {
+  min-height: 100vh;
+  background: var(--wbah-bg-alt);
+  color: var(--wbah-ink);
+  font-family: var(--wbah-font-body);
+}
+
+.sh-admin__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px 24px;
+  background: var(--wbah-ink);
+  color: #fff;
+}
+
+.sh-admin__brand {
+  font-family: var(--wbah-font-head);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-size: 1.05rem;
+}
+
+.sh-admin__brand span {
+  color: var(--wbah-teal-lite);
+}
+
+.sh-admin__bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.9rem;
+}
+
+.sh-admin__user {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.sh-admin__wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 24px 64px;
+}
+
+.sh-admin h1 {
+  font-family: var(--wbah-font-head);
+  font-size: 1.6rem;
+  margin: 0 0 4px;
+}
+
+.sh-admin__sub {
+  color: var(--wbah-muted);
+  margin: 0 0 24px;
+  font-size: 0.95rem;
+}
+
+/* --- stat tiles --- */
+.sh-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.sh-stat {
+  background: #fff;
+  border: 1px solid var(--wbah-line);
+  border-radius: var(--wbah-radius);
+  padding: 16px 18px;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s var(--wbah-ease), box-shadow 0.15s var(--wbah-ease);
+}
+
+.sh-stat:hover {
+  border-color: var(--wbah-teal);
+  box-shadow: var(--wbah-shadow-sm);
+}
+
+.sh-stat.is-active {
+  border-color: var(--wbah-teal-dark);
+  box-shadow: inset 0 0 0 1px var(--wbah-teal-dark);
+}
+
+.sh-stat__num {
+  display: block;
+  font-family: var(--wbah-font-head);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.sh-stat__label {
+  display: block;
+  color: var(--wbah-muted);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+
+/* --- toolbar --- */
+.sh-toolbar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.sh-toolbar form {
+  display: flex;
+  gap: 8px;
+  flex: 1 1 320px;
+}
+
+.sh-toolbar input[type='search'] {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--wbah-line);
+  border-radius: 8px;
+  font: inherit;
+  background: #fff;
+}
+
+.sh-toolbar input[type='search']:focus-visible {
+  outline: 2px solid var(--wbah-teal-dark);
+  outline-offset: 1px;
+}
+
+.sh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sh-btn--primary {
+  background: var(--wbah-teal-dark);
+  color: #fff;
+}
+
+.sh-btn--primary:hover {
+  background: var(--wbah-teal-deep);
+}
+
+.sh-btn--ghost {
+  background: #fff;
+  border-color: var(--wbah-line);
+  color: var(--wbah-ink);
+}
+
+.sh-btn--ghost:hover {
+  border-color: var(--wbah-teal-dark);
+}
+
+.sh-btn--link {
+  background: none;
+  border: 0;
+  color: #fff;
+  padding: 0;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+/* --- table --- */
+.sh-tablewrap {
+  background: #fff;
+  border: 1px solid var(--wbah-line);
+  border-radius: var(--wbah-radius);
+  overflow-x: auto;
+}
+
+.sh-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  min-width: 900px;
+}
+
+.sh-table th,
+.sh-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--wbah-line);
+  vertical-align: top;
+}
+
+.sh-table thead th {
+  background: var(--wbah-bg-alt);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--wbah-muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sh-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.sh-table tbody tr:hover {
+  background: var(--wbah-bg-mint);
+}
+
+.sh-name {
+  font-weight: 600;
+}
+
+.sh-muted {
+  color: var(--wbah-muted);
+  font-size: 0.85rem;
+}
+
+.sh-table a {
+  color: var(--wbah-teal-dark);
+}
+
+.sh-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sh-pill--new {
+  background: var(--wbah-bg-mint);
+  color: var(--wbah-teal-deep);
+}
+
+.sh-pill--contacted {
+  background: #fdf3d8;
+  color: #8a6414;
+}
+
+.sh-pill--closed {
+  background: var(--wbah-line);
+  color: var(--wbah-body);
+}
+
+.sh-status-form {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.sh-status-form select {
+  padding: 6px 8px;
+  border: 1px solid var(--wbah-line);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.85rem;
+  background: #fff;
+}
+
+.sh-empty {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--wbah-muted);
+}
+
+/* --- pagination --- */
+.sh-pager {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.sh-pager a,
+.sh-pager span {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--wbah-line);
+  background: #fff;
+  text-decoration: none;
+  color: var(--wbah-ink);
+  font-size: 0.9rem;
+}
+
+.sh-pager .is-current {
+  background: var(--wbah-teal-dark);
+  border-color: var(--wbah-teal-dark);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* --- login --- */
+.sh-login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: linear-gradient(160deg, var(--wbah-ink) 0%, var(--wbah-teal-deep) 140%);
+}
+
+.sh-login__card {
+  width: min(420px, 100%);
+  background: #fff;
+  border-radius: var(--wbah-radius-lg);
+  box-shadow: var(--wbah-shadow-lg);
+  padding: 36px 32px;
+}
+
+.sh-login__card h1 {
+  font-size: 1.35rem;
+  margin: 0 0 6px;
+}
+
+.sh-login__card p.sh-admin__sub {
+  margin-bottom: 22px;
+}
+
+.sh-field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.sh-field span {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.sh-field input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--wbah-line);
+  border-radius: 8px;
+  font: inherit;
+  background: #fff;
+}
+
+.sh-field input:focus-visible {
+  outline: 2px solid var(--wbah-teal-dark);
+  outline-offset: 1px;
+}
+
+.sh-error {
+  background: #fdecec;
+  border: 1px solid #f6c8c8;
+  color: #9c1c1c;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.sh-login .sh-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 12px 16px;
+}
+
+@media (max-width: 640px) {
+  .sh-admin__wrap {
+    padding: 20px 14px 48px;
+  }
+}

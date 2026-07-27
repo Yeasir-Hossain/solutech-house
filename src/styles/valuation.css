@@ -1,0 +1,127 @@
+/* WBAH valuation form. Uses theme tokens when present, with safe fallbacks. */
+.wbah-val {
+  --v-teal: var(--wbah-teal, #20a997);
+  --v-teal-dk: var(--wbah-teal-dark, #198576);
+  --v-yellow: var(--wbah-yellow, #f4c755);
+  --v-ink: var(--wbah-ink, #272c3e);
+  --v-line: var(--wbah-line, #e6e6e6);
+  --v-muted: var(--wbah-muted, #777771);
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.wbah-val__head { text-align: center; margin-bottom: 28px; }
+.wbah-val__title { margin: 0 0 .3em; }
+.wbah-val__title span { box-shadow: inset 0 -.35em 0 rgba(32,169,151,.35); }
+.wbah-val__sub { color: var(--v-muted); margin: 0 auto; max-width: 46ch; }
+
+/* Stepper */
+.wbah-val__steps {
+  list-style: none; display: flex; justify-content: center; gap: 0; padding: 0;
+  margin: 0 0 32px; counter-reset: none;
+}
+.wbah-val__steps li {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-family: var(--wbah-font-head, sans-serif); font-weight: 700; font-size: .9rem;
+  color: var(--v-muted); position: relative; flex: 1; max-width: 180px; text-align: center;
+}
+.wbah-val__steps li::before {
+  content: ""; position: absolute; top: 22px; left: -50%; width: 100%; height: 3px;
+  background: var(--v-ink); z-index: 0;
+}
+.wbah-val__steps li:first-child::before { display: none; }
+.wbah-val__num {
+  width: 46px; height: 46px; border-radius: 10px; display: grid; place-items: center;
+  background: var(--v-ink); color: #fff; font-size: 1.1rem; z-index: 1; position: relative;
+}
+.wbah-val__steps li.is-active { color: var(--v-ink); }
+.wbah-val__steps li.is-active .wbah-val__num,
+.wbah-val__steps li.is-done .wbah-val__num { background: var(--v-yellow); color: var(--v-ink); }
+
+/* Panels */
+.wbah-val__form { border: 0; padding: 0; margin: 0; }
+.wbah-val__panel { border: 0; padding: 0; margin: 0; min-inline-size: auto; }
+.wbah-val__field { margin-bottom: 18px; }
+.wbah-val__field label,
+.wbah-val__label { display: block; font-family: var(--wbah-font-head, sans-serif); font-weight: 600; color: var(--v-ink); margin-bottom: 6px; }
+.req { color: #e51919; }
+.wbah-val__field input {
+  width: 100%; padding: 13px 14px; border: 1px solid var(--v-line); border-radius: 8px;
+  font: inherit; color: var(--v-ink); background: #fff;
+}
+.wbah-val__field input:focus { outline: 2px solid var(--v-teal); outline-offset: 0; border-color: var(--v-teal); }
+.wbah-val__hint { display: block; font-size: .82rem; color: var(--v-muted); margin-top: 5px; }
+
+/* Postcode autocomplete */
+.wbah-val__field--lookup { position: relative; }
+.wbah-val__dropdown { position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; right: 0; margin: 0; padding: 6px; list-style: none; background: #fff; border: 1px solid var(--v-line); border-radius: 10px; box-shadow: 0 16px 40px rgba(28,34,51,.16); max-height: 260px; overflow-y: auto; }
+.wbah-val__dropdown li { padding: 11px 14px; border-radius: 7px; cursor: pointer; font-weight: 600; color: var(--v-ink); font-family: var(--wbah-font-head, sans-serif); letter-spacing: .02em; }
+.wbah-val__dropdown li:hover, .wbah-val__dropdown li.is-active { background: rgba(32,169,151,.1); color: var(--v-teal-dk); }
+.wbah-val__row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* Property tiles */
+.wbah-val__tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 6px; }
+.wbah-tile {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; padding: 20px 10px; border: 2px solid var(--v-line); border-radius: 10px;
+  background: #f7f9fa; cursor: pointer; text-align: center; transition: border-color .12s, background .12s;
+}
+.wbah-tile input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.wbah-tile__icon { display: block; color: var(--v-muted); transition: color .15s; }
+.wbah-tile__icon svg { width: 46px; height: 46px; }
+.wbah-tile__label { font-family: var(--wbah-font-head, sans-serif); font-weight: 600; font-size: .85rem; color: var(--v-ink); }
+.wbah-tile.is-selected .wbah-tile__icon,
+.wbah-tile:has(input:checked) .wbah-tile__icon { color: var(--v-teal); }
+.wbah-tile.is-selected,
+.wbah-tile:has(input:checked) { border-color: var(--v-teal); background: rgba(32,169,151,.08); }
+.wbah-tile:has(input:focus-visible) { outline: 2px solid var(--v-teal); outline-offset: 2px; }
+
+/* Bedrooms */
+.wbah-val__field--beds { margin-top: 20px; }
+.wbah-val__beds { display: flex; flex-wrap: wrap; gap: 8px; }
+.wbah-bed { position: relative; }
+.wbah-bed input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.wbah-bed span {
+  display: grid; place-items: center; min-width: 46px; height: 46px; padding: 0 10px;
+  border: 2px solid var(--v-line); border-radius: 8px; font-family: var(--wbah-font-head, sans-serif);
+  font-weight: 700; color: var(--v-ink); background: #fff; cursor: pointer;
+}
+.wbah-bed.is-selected span,
+.wbah-bed:has(input:checked) span { border-color: var(--v-teal); background: var(--v-teal); color: #fff; }
+
+/* Note */
+.wbah-val__note {
+  background: var(--v-ink); color: #eef1f6; border-radius: 8px; padding: 12px 16px;
+  font-size: .9rem; margin: 22px 0 0; text-align: center;
+}
+.wbah-val__note strong { color: #fff; }
+
+/* Nav buttons */
+.wbah-val__nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 26px; }
+.wbah-btn--muted { background: #e3e6ea; color: var(--v-ink); }
+.wbah-btn--muted:hover { background: #d3d7dd; }
+.wbah-btn.is-loading { opacity: .7; pointer-events: none; }
+
+/* Errors */
+.wbah-val__error { display: block; color: #e51919; font-size: .85rem; margin-top: 5px; min-height: 1px; }
+.wbah-val__error[hidden] { display: none; }
+.wbah-val__error--form { text-align: center; margin: 0 0 16px; padding: 10px; background: #fdecec; border-radius: 8px; }
+.has-error input { border-color: #e51919; }
+
+/* Honeypot */
+.wbah-val__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.wbah-val__recaptcha { font-size: .8rem; color: var(--v-muted); text-align: center; margin: 18px 0 0; }
+
+/* Success */
+.wbah-val__success { text-align: center; padding: 40px 20px; }
+.wbah-val__success-icon {
+  width: 64px; height: 64px; border-radius: 50%; background: var(--v-teal); color: #fff;
+  display: grid; place-items: center; font-size: 2rem; margin: 0 auto 16px;
+}
+
+@media (max-width: 620px) {
+  .wbah-val__tiles { grid-template-columns: 1fr 1fr; }
+  .wbah-val__row { grid-template-columns: 1fr; }
+  .wbah-val__steps li { font-size: .78rem; }
+  .wbah-val__num { width: 40px; height: 40px; }
+}
