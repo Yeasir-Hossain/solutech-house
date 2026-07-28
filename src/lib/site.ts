@@ -1,21 +1,20 @@
 /** Canonical origin for metadata, OG tags and the sitemap. */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL || 'https://www.solutechhouse.co.uk'
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://www.quicksellyourhouse.co.uk'
 ).replace(/\/$/, '');
 
 /**
  * Brand and legal identity.
  *
- * The trading name is provisional — set NEXT_PUBLIC_BRAND_* to override without
- * touching code. The registered-company details are carried over from the site
- * this content came from and must be confirmed before going live.
+ * Set NEXT_PUBLIC_BRAND_* to override without touching code. `legal` is only
+ * rendered in the privacy policy — the trading name is what appears everywhere
+ * else on the site.
  */
 export const COMPANY = {
-  name: process.env.NEXT_PUBLIC_BRAND_NAME || 'Solutech House',
+  name: process.env.NEXT_PUBLIC_BRAND_NAME || 'Quick Sell Your House',
   /** Rendered as two-tone in the logo: `first` + accented `second`. */
-  logo: { first: 'solutech', second: 'house' },
-  legal: process.env.NEXT_PUBLIC_BRAND_LEGAL || 'Solutech Holdings Limited',
-  companyNumber: process.env.NEXT_PUBLIC_BRAND_COMPANY_NO || '12345678',
+  logo: { first: 'quicksell', second: 'yourhouse' },
+  legal: process.env.NEXT_PUBLIC_BRAND_LEGAL || 'Land Invest 7 Limited',
   domain: publicDomain(),
 };
 
@@ -23,5 +22,5 @@ export const COMPANY = {
  *  line reads as a bug rather than as a dev environment. */
 function publicDomain(): string {
   const host = new URL(SITE_URL).host.replace(/^www\./, '');
-  return /^localhost|^127\.|^0\.0\.0\.0/.test(host) ? 'solutechhouse.co.uk' : host;
+  return /^localhost|^127\.|^0\.0\.0\.0/.test(host) ? 'quicksellyourhouse.co.uk' : host;
 }

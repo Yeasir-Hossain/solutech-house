@@ -25,11 +25,10 @@ export default function Footer() {
         <div className="footer-cols">
           <div className="footer-col footer-col--brand">
             <div className="site-branding">
-              Solutech <span className="accent">House</span>
+              Quicksell <span className="accent">Your House</span>
             </div>
             <p className="footer-copy">
-              Copyright {year}. All rights reserved. {COMPANY.domain}, trading style of{' '}
-              {COMPANY.legal}, company registered number {COMPANY.companyNumber}.
+              Copyright {year}. All rights reserved. {COMPANY.domain}.
             </p>
             <Link className="wbah-btn wbah-btn--cta" href="/get-a-valuation/">
               Make me an offer

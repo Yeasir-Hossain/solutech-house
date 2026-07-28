@@ -36,17 +36,67 @@ const DROP_SLUGS = new Set(['test', 'test-2']);
  * `we-buy-any-house` blog category keeps its slug so existing links and the
  * redirect map stay valid; only its display name changes.
  */
-const BRAND = 'Solutech House';
+const BRAND = 'Quick Sell Your House';
+const LEGAL = 'Land Invest 7 Limited';
 const BRAND_REPLACEMENTS = [
   [/WeBuyAnyHouse/g, BRAND],
   [/We Buy Any House/g, BRAND],
   [/We Buy any House/g, BRAND],
-  [/webuyanyhouse\.co\.uk/g, 'solutechhouse.co.uk'],
+  [/webuyanyhouse\.co\.uk/gi, 'quicksellyourhouse.co.uk'],
+  // Bare token, only in the policy pages' copyright line.
+  [/©\s*webuyanyhouse/gi, `© ${BRAND}`],
 ];
 
 function rebrand(text) {
   if (!text) return text;
   return BRAND_REPLACEMENTS.reduce((acc, [from, to]) => acc.replace(from, to), text);
+}
+
+/**
+ * Legal identity: the four policy pages were imported with the previous
+ * operator's three-company block (LXB Equity / Lowerhouse Estates / Alta
+ * International). The registered entity is named in the privacy policy only —
+ * every other page points there rather than repeating it, and no company
+ * number is published.
+ */
+const ENTITY_BLOCK =
+  /which is a trading style \/ trading name used by a collaboration of the following companies:[\s\S]*?United Arab Emirates\./;
+
+const LEGAL_REPLACEMENTS = {
+  'privacy-policy': [
+    [ENTITY_BLOCK, `which is a trading style of ${LEGAL}.`],
+    // Joint-controller wording only made sense while three companies shared the site.
+    [
+      / We are joint controllers\. As such, we are required to nominate one controller as the central contact point for you\. This is LXB Equity Limited\./,
+      ` The data controller is ${LEGAL}.`,
+    ],
+    // Nominated UK representative: only meaningful while a UAE entity was involved.
+    [
+      / For Alta International DMCC, you may contact LXB Equity Limited if you wish to contact our nominated representative for data protection within the UK\./,
+      '',
+    ],
+    [/England and DMCC, Dubai, United Arab Emirates depending on the collaboration company/, 'England'],
+  ],
+  'website-terms': [[ENTITY_BLOCK, LEGAL_ELSEWHERE()]],
+  'cookie-policy': [[ENTITY_BLOCK, LEGAL_ELSEWHERE()]],
+  'site-acceptable-use-policy': [[ENTITY_BLOCK, LEGAL_ELSEWHERE()]],
+};
+
+function LEGAL_ELSEWHERE() {
+  return 'which is a trading style of the company named in our Privacy Policy.';
+}
+
+// One registered office now, on every page that had the multi-company wording.
+const OFFICE_REPLACEMENTS = [
+  [/at any of our separate company registered office addresses/g, 'at our registered office'],
+  [/for any of our separate companies at our registered offices/g, 'at our registered office'],
+  [/you can contact any of our separate company at our registered offices/g, 'you can contact us at our registered office'],
+];
+
+function relegal(html, slug) {
+  if (!html) return html;
+  const rules = [...(LEGAL_REPLACEMENTS[slug] || []), ...OFFICE_REPLACEMENTS];
+  return rules.reduce((acc, [from, to]) => acc.replace(from, to), html);
 }
 
 const read = async (name) => JSON.parse(await fs.readFile(path.join(SRC, `${name}.json`), 'utf8'));
@@ -131,7 +181,7 @@ function normaliseItem(item) {
     path: item.path,
     title: rebrand(item.title),
     excerpt: rebrand(item.excerpt),
-    content: rebrand(rewriteContent(item.content)),
+    content: relegal(rebrand(rewriteContent(item.content)), item.slug),
     date: item.date,
     modified: item.modified,
     featured: featured
