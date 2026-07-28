@@ -25,7 +25,10 @@ export default function Footer() {
         <div className="footer-cols">
           <div className="footer-col footer-col--brand">
             <div className="site-branding">
-              Quicksell <span className="accent">Your House</span>
+              <img src="/img/logo-mark.svg" alt="" width={28} height={28} />
+              <span>
+                Quicksell <span className="accent">Your House</span>
+              </span>
             </div>
             <p className="footer-copy">
               Copyright {year}. All rights reserved. {COMPANY.domain}.

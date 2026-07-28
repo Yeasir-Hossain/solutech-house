@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Quick Sell Your House">
+  <mask id="house">
+    <path d="M32 9 L57 34 L49 34 L49 55 L15 55 L15 34 L7 34 Z"
+          fill="#fff" stroke="#fff" stroke-width="5" stroke-linejoin="round" />
+  </mask>
+  <g mask="url(#house)">
+    <rect width="64" height="64" fill="#20a997" />
+    <path d="M8 64 L64 8 L64 64 Z" fill="#f4c755" />
+    <path d="M8 64 L64 8" stroke="#fff" stroke-width="5" />
+  </g>
+</svg>

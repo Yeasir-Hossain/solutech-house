@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Montserrat, Roboto } from 'next/font/google';
 import { getSite } from '@/lib/content';
 import { SITE_URL } from '@/lib/site';
@@ -18,6 +18,10 @@ const roboto = Roboto({
   variable: '--font-roboto',
   display: 'swap',
 });
+
+/** Brand teal tints the mobile browser chrome. It is a graphic surface, not text,
+ *  so the light `--wbah-teal` is the right one here. */
+export const viewport: Viewport = { themeColor: '#20a997' };
 
 export function generateMetadata(): Metadata {
   const site = getSite();

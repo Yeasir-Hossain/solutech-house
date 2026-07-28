@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Favicon cut of public/img/logo-mark.svg: less padding and a wider split so
+       the two halves still separate at 16px. -->
+  <mask id="house">
+    <path d="M32 6 L59 33 L50 33 L50 57 L14 57 L14 33 L5 33 Z"
+          fill="#fff" stroke="#fff" stroke-width="6" stroke-linejoin="round" />
+  </mask>
+  <g mask="url(#house)">
+    <rect width="64" height="64" fill="#20a997" />
+    <path d="M6 64 L64 6 L64 64 Z" fill="#f4c755" />
+    <path d="M6 64 L64 6" stroke="#fff" stroke-width="7" />
+  </g>
+</svg>
