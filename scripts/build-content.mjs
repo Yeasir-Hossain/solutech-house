@@ -53,6 +53,42 @@ function rebrand(text) {
 }
 
 /**
+ * WordPress stores titles and excerpts HTML-encoded, and the theme ran them
+ * through the_title(), which decodes. We render them as text, so the entity
+ * has to go now — otherwise a post reads "What&#8217;s The Difference?".
+ *
+ * Body content is NOT decoded: it is real HTML and its entities are load-bearing.
+ */
+const NAMED_ENTITIES = {
+  amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ',
+  hellip: '…', ndash: '–', mdash: '—', minus: '−',
+  lsquo: '‘', rsquo: '’', sbquo: '‚', ldquo: '“', rdquo: '”', bdquo: '„',
+  laquo: '«', raquo: '»', pound: '£', euro: '€', deg: '°',
+  frac12: '½', frac14: '¼', frac34: '¾', times: '×', middot: '·',
+  trade: '™', reg: '®', copy: '©',
+};
+
+/** Single pass, so `&amp;#8217;` stays literal instead of decoding twice. */
+function decodeEntities(text) {
+  if (!text) return text;
+  return text.replace(/&(#\d+|#x[0-9a-f]+|[a-z][a-z0-9]*);/gi, (whole, body) => {
+    if (body[0] === '#') {
+      const code = body[1] === 'x' || body[1] === 'X'
+        ? parseInt(body.slice(2), 16)
+        : parseInt(body.slice(1), 10);
+      return Number.isFinite(code) && code > 0 && code <= 0x10ffff
+        ? String.fromCodePoint(code)
+        : whole;
+    }
+    const named = NAMED_ENTITIES[body.toLowerCase()];
+    return named === undefined ? whole : named;
+  });
+}
+
+/** Plain-text field: decode, then rebrand (the brand never appears encoded). */
+const plain = (text) => rebrand(decodeEntities(text));
+
+/**
  * Legal identity: the four policy pages were imported with the previous
  * operator's three-company block (LXB Equity / Lowerhouse Estates / Alta
  * International). The registered entity is named in the privacy policy only —
@@ -179,8 +215,8 @@ function normaliseItem(item) {
     type: item.type,
     slug: item.slug,
     path: item.path,
-    title: rebrand(item.title),
-    excerpt: rebrand(item.excerpt),
+    title: plain(item.title),
+    excerpt: plain(item.excerpt),
     content: relegal(rebrand(rewriteContent(item.content)), item.slug),
     date: item.date,
     modified: item.modified,
@@ -189,12 +225,12 @@ function normaliseItem(item) {
           src: featured.src,
           width: featured.width,
           height: featured.height,
-          alt: rebrand(item.featured.alt || item.title),
+          alt: plain(item.featured.alt || item.title),
         }
       : null,
     categories: (item.terms || [])
       .filter((t) => t.taxonomy === 'category')
-      .map((t) => ({ name: rebrand(t.name), slug: t.slug })),
+      .map((t) => ({ name: plain(t.name), slug: t.slug })),
     menuOrder: item.menuOrder,
   };
 }
@@ -225,8 +261,8 @@ async function main() {
   const taxonomies = await read('taxonomies');
   for (const terms of Object.values(taxonomies)) {
     for (const term of terms) {
-      term.name = rebrand(term.name);
-      term.description = rebrand(term.description);
+      term.name = plain(term.name);
+      term.description = plain(term.description);
     }
   }
   await fs.writeFile(path.join(OUT, 'taxonomies.json'), JSON.stringify(taxonomies));
@@ -238,7 +274,7 @@ async function main() {
     // host in every page's payload.
     menus[location] = items.map(({ url, ...item }) => ({
       ...item,
-      title: rebrand(item.title),
+      title: plain(item.title),
       path: item.external ? item.path : rewriteUrl(url),
     }));
   }
@@ -249,7 +285,7 @@ async function main() {
     path.join(OUT, 'site.json'),
     JSON.stringify({
       name: BRAND,
-      description: rebrand(site.description),
+      description: plain(site.description),
       counts: Object.fromEntries(TYPES.map((t) => [t, bundle[t].length])),
       generatedAt: new Date().toISOString(),
     })
